@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import "./App.css";
+
+import usePersistentState from "../../libs/usePersistentState.js";
 
 import InputList from "../InputList";
 import ShowList from "../ShowList";
@@ -18,14 +20,24 @@ let shoppingList = [
   { name: "Dishwasher Tablets", Completed: false }
 ];
 
+function reducer(state, action) {
+  switch (action.type) {
+    case "addToList":
+      return { list: state.list };
+    case "handleInput"
+  }
+  
+
+const initialState = { list: [], input: "" };
+
 function App() {
-  const [list, setList] = useState(shoppingList); // Here is where the useState function takes in the list for changing.
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   function addToList(newListItem) {
     //This function changes the state of the list by pushing the text from the input field in to the array.
     const listObject = { name: newListItem, completed: false };
     const updatedList = [...list, listObject];
-    setList(updatedList);
+    dispatch({ type: "addToList" });
   }
 
   function clearList() {
@@ -59,3 +71,4 @@ function App() {
 }
 
 export default App;
+
